@@ -5,7 +5,6 @@ import com.soultotec.transactionservice.adapters.outbound.repositories.domains.A
 import com.soultotec.transactionservice.adapters.outbound.repositories.domains.TransactionDomain;
 import com.soultotec.transactionservice.application.entities.FinancialStatementEntity;
 import com.soultotec.transactionservice.application.entities.TransactionEntity;
-import com.soultotec.transactionservice.application.mappers.AccountHolderMapper;
 import com.soultotec.transactionservice.application.mappers.TransactionMapper;
 import com.soultotec.transactionservice.application.ports.repositories.TransactionRepository;
 import org.springframework.stereotype.Repository;
@@ -19,12 +18,10 @@ public class TransactionRepositoryAdapterImpl implements TransactionRepository {
     
     private final SpringDataTransactionRepository transactionRepository;
     private final TransactionMapper transactionMapper;
-    private final AccountHolderMapper accountHolderMapper;
 
-    public TransactionRepositoryAdapterImpl(SpringDataTransactionRepository transactionRepository, TransactionMapper transactionMapper, AccountHolderMapper accountHolderMapper) {
+    public TransactionRepositoryAdapterImpl(SpringDataTransactionRepository transactionRepository, TransactionMapper transactionMapper) {
         this.transactionRepository = transactionRepository;
         this.transactionMapper = transactionMapper;
-        this.accountHolderMapper = accountHolderMapper;
     }
 
     @Override
