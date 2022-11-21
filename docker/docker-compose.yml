@@ -2,6 +2,7 @@ version: '3.8'
 services:
   jms:
     image: andr94/artemis:ubuntu-v2.16.0
+#    image: andr94/artemis:arm64-v2.16.0 for ARN based.
     container_name: activemq
     environment:
       ARTEMIS_USER: app
