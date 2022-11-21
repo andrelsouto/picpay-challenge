@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  jms:
+    image: andr94/artemis:ubuntu-v2.16.0
+    container_name: activemq
+    environment:
+      ARTEMIS_USER: app
+      ARTEMIS_PASSWORD: 811922
+
+  database:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: fin
+      MONGO_INITDB_ROOT_PASSWORD: f1n
+
+  financial-service:
+    image: andr94/financial-service:latest
+    container_name: financial-service
+    environment:
+      SPRING_ARTEMIS_BROKER-URL: tcp://jms:61616
+      SPRING_ARTEMIS_USER: app
+      SPRING_ARTEMIS_PASSWORD: 811922
+      SPRING_DATA_MONGODB_DATABASE: financial
+      SPRING_DATA_MONGODB_HOST: database
+      SPRING_DATA_MONGODB_USERNAME: fin
+      SPRING_DATA_MONGODB_PASSWORD: f1n
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+    depends_on:
+      - database
+      - jms
+
+  transaction-service:
+    image: andr94/transaction-service:latest
+    container_name: transaction-service
+    environment:
+      SPRING_ARTEMIS_BROKER-URL: tcp://jms:61616
+      SPRING_ARTEMIS_USER: app
+      SPRING_ARTEMIS_PASSWORD: 811922
+      SPRING_DATA_MONGODB_DATABASE: transaction
+      SPRING_DATA_MONGODB_HOST: database
+      SPRING_DATA_MONGODB_USERNAME: fin
+      SPRING_DATA_MONGODB_PASSWORD: f1n
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+      FINANCIAL_SERVICE_URL: financial-service:8080/api/v1/account
+    depends_on:
+      - database
+      - jms
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - financial-service
+      - transaction-service

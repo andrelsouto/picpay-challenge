@@ -1,0 +1,21 @@
+logging:
+  level:
+    com:
+      soultotec:
+        transactionservice: DEBUG
+
+spring:
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: app
+    password: 811922
+  data:
+    mongodb:
+      database: transaction
+      host: localhost
+      username: fin
+      password: f1n
+      authentication-database: admin
+
+server:
+  port: 8081
