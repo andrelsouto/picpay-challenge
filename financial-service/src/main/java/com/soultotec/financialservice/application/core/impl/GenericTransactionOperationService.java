@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Optional;
 
-public sealed class GenericTransactionOperationService permits DepositTransactionOperationServiceImpl, PaymentTransactionOperationServiceImpl, WireTransferTransactionOperationImpl, WithdrawTransactionOperationServiceImpl {
+public sealed abstract class GenericTransactionOperationService permits DepositTransactionOperationServiceImpl, PaymentTransactionOperationServiceImpl, WireTransferTransactionOperationImpl, WithdrawTransactionOperationServiceImpl {
 
     private final AccountHolderRepository accountHolderRepository;
     private final AccountHolderMapper accountHolderMapper;

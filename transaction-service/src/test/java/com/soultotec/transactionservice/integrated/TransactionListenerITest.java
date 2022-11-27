@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(WireMockExtension.class)
 @Import(WireMockConfig.class)
 @SpringBootTest(classes = TransactionServiceApplication.class)
-class TransactionListenerTestIT {
+class TransactionListenerITest {
 
     @Autowired
     JmsTemplate jmsTemplate;

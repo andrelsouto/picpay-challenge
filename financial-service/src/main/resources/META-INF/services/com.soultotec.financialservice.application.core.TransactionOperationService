@@ -1,0 +1,4 @@
+com.soultotec.financialservice.application.core.impl.DepositTransactionOperationServiceImpl
+com.soultotec.financialservice.application.core.impl.PaymentTransactionOperationServiceImpl
+com.soultotec.financialservice.application.core.impl.WireTransferTransactionOperationImpl
+com.soultotec.financialservice.application.core.impl.WithdrawTransactionOperationServiceImpl

@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = FinancialServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class FinancialTransactionServiceIT {
+public class FinancialTransactionServiceITest {
 
     @Autowired
     MockMvc mockMvc;
@@ -87,10 +87,8 @@ public class FinancialTransactionServiceIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))).andExpect(MockMvcResultMatchers.status().isOk());
 
-        Awaitility.await().untilAsserted(() -> {
-            this.accountHolderRepository.findById(saved.id()).ifPresent(
-                    updated -> assertEquals(new BigDecimal(3500), updated.wallet().amount()));
-        });
+        Awaitility.await().untilAsserted(() -> this.accountHolderRepository.findById(saved.id()).ifPresent(
+                updated -> assertEquals(new BigDecimal(3500), updated.wallet().amount())));
     }
 
     private void saveAccountHolder() {
